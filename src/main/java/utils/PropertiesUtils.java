@@ -3,7 +3,6 @@ package utils;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
 import java.util.Properties;
 
 public class PropertiesUtils {

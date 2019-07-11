@@ -1,7 +1,6 @@
 package handlers;
 
 import com.github.javaparser.ast.Node;
-import com.github.javaparser.ast.expr.ArrayAccessExpr;
 import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.stmt.ForStmt;
 

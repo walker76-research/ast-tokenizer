@@ -2,7 +2,6 @@ package handlers;
 
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.expr.ArrayInitializerExpr;
-import com.github.javaparser.ast.stmt.SwitchStmt;
 
 import java.util.ArrayList;
 import java.util.List;

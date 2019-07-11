@@ -1,7 +1,6 @@
 package handlers;
 
 import com.github.javaparser.ast.Node;
-import com.github.javaparser.ast.expr.ArrayInitializerExpr;
 import com.github.javaparser.ast.expr.InstanceOfExpr;
 
 import java.util.ArrayList;
