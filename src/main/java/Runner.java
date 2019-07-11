@@ -4,6 +4,7 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import utils.DirectoryUtils;
 import utils.PropertiesUtils;
 import utils.TreeUtils;
 
@@ -22,7 +23,7 @@ public class Runner {
         Properties prop = PropertiesUtils.getProperties();
         String sourceDir = prop.getProperty(SOURCE_DIR_KEY);
         String outDir = prop.getProperty(OUTPUT_DIR_KEY);
-        List<String> files = DirectoryScanner.scan(sourceDir);
+        List<String> files = DirectoryUtils.scan(sourceDir);
 
         for(String file : files) {
             System.out.println(file);

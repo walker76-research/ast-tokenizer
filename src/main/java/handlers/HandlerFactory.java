@@ -1,6 +1,15 @@
 package handlers;
 
 import com.github.javaparser.ast.Node;
+import handlers.comment.*;
+import handlers.declaration.*;
+import handlers.expr.*;
+import handlers.literal.*;
+import handlers.misc.*;
+import handlers.name.*;
+import handlers.parameter.*;
+import handlers.stmt.*;
+import handlers.type.*;
 
 public class HandlerFactory {
     public static BaseHandler getHandler(Node n){
