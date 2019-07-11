@@ -1,10 +1,12 @@
+package utils;
+
 import com.github.javaparser.ast.Node;
 
 import java.util.*;
 
-class TreeUtils {
+public class TreeUtils {
 
-    static List<Node> extractNodes(Node root, Class c){
+    public static List<Node> extractNodes(Node root, Class c){
         List<Node> nodes = new ArrayList<>();
 
         for(Node child : root.getChildNodes()){

@@ -4,16 +4,25 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import utils.PropertiesUtils;
+import utils.TreeUtils;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class Runner {
+
+    private static final String SOURCE_DIR_KEY = "SOURCE_DIR";
+    private static final String OUTPUT_DIR_KEY = "OUTPUT_DIR";
+
     public static void main(String[] args) throws IOException{
 
-        String dir = "C:\\Programs\\BigCloneEval\\ijadataset\\bcb_reduced";
-        List<String> files = DirectoryScanner.scan(dir);
+        Properties prop = PropertiesUtils.getProperties();
+        String sourceDir = prop.getProperty(SOURCE_DIR_KEY);
+        String outDir = prop.getProperty(OUTPUT_DIR_KEY);
+        List<String> files = DirectoryScanner.scan(sourceDir);
 
         for(String file : files) {
             System.out.println(file);
@@ -43,7 +52,7 @@ public class Runner {
                         int end = file.lastIndexOf(".");
                         String file_name = file.substring(start + 1, end);
 
-                        FileWriter fw = new FileWriter("C:\\Programs\\cc-data\\" + file_name + "-" + method_name + ".token");
+                        FileWriter fw = new FileWriter(outDir + file_name + "-" + method_name + ".token");
                         for (String token : tokens) {
                             fw.write(token);
                             fw.write("\n");
