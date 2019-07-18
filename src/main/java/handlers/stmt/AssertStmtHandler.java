@@ -4,15 +4,16 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.stmt.AssertStmt;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AssertStmtHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
-        tokens.add("ASSERT");
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
+        tokens.add(new BCEToken("ASSERT", node));
         AssertStmt assertStmt = (AssertStmt)node;
         Node check = assertStmt.getCheck();
         BaseHandler handler = HandlerFactory.getHandler(check);

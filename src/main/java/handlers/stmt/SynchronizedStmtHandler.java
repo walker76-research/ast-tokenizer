@@ -4,15 +4,16 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.stmt.SynchronizedStmt;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SynchronizedStmtHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
-        tokens.add("SYNCHRONIZED");
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
+        tokens.add(new BCEToken("SYNCHRONIZED", node));
         SynchronizedStmt synchronizedStmt = (SynchronizedStmt)node;
 
         Node expression = synchronizedStmt.getExpression();

@@ -4,15 +4,16 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.stmt.DoStmt;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DoStmtHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
-        tokens.add("DO");
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
+        tokens.add(new BCEToken("DO", node));
         DoStmt doStmt = (DoStmt)node;
         Node body = doStmt.getBody();
         BaseHandler handler = HandlerFactory.getHandler(body);
@@ -21,7 +22,7 @@ public class DoStmtHandler extends BaseHandler {
         } else {
             System.out.println(body.getClass().getSimpleName());
         }
-        tokens.add("WHILE");
+        tokens.add(new BCEToken("WHILE", node));
         Node condition = doStmt.getCondition();
         handler = HandlerFactory.getHandler(condition);
         if(handler != null) {

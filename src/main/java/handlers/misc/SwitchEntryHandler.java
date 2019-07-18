@@ -7,18 +7,19 @@ import com.github.javaparser.ast.stmt.Statement;
 import com.github.javaparser.ast.stmt.SwitchEntry;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SwitchEntryHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
         SwitchEntry switchEntry = (SwitchEntry)node;
 
         NodeList<Expression> labels = switchEntry.getLabels();
-        tokens.add("CASE");
+        tokens.add(new BCEToken("CASE", node));
         for (Node child : labels) {
             BaseHandler handler = HandlerFactory.getHandler(child);
             if (handler != null) {
@@ -29,7 +30,7 @@ public class SwitchEntryHandler extends BaseHandler {
         }
 
         NodeList<Statement> statements = switchEntry.getStatements();
-        tokens.add("DO");
+        tokens.add(new BCEToken("DO", node));
         for (Node child : statements) {
             BaseHandler handler = HandlerFactory.getHandler(child);
             if (handler != null) {

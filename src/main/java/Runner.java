@@ -4,6 +4,7 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 import utils.DirectoryUtils;
 import utils.PropertiesUtils;
 import utils.TreeUtils;
@@ -29,6 +30,11 @@ public class Runner {
             System.out.println(file);
             String javaContent = readFile(file);
             CompilationUnit compilationUnit;
+            /*
+            Provider provider = new StringProvider(javaContent);
+            SimpleCharStream charStream = new SimpleCharStream(provider);
+            GeneratedJavaParserTokenManager tokenManager = new GeneratedJavaParserTokenManager(charStream);
+            */
             try {
                 compilationUnit = StaticJavaParser.parse(javaContent);
             } catch(Exception e){
@@ -47,15 +53,15 @@ public class Runner {
 
                     BaseHandler handler = HandlerFactory.getHandler(dec);
                     if (handler != null) {
-                        List<String> tokens = new ArrayList<>(handler.handle(dec));
+                        List<BCEToken> tokens = new ArrayList<>(handler.handle(dec));
 
                         int start = file.lastIndexOf("\\");
                         int end = file.lastIndexOf(".");
                         String file_name = file.substring(start + 1, end);
 
                         FileWriter fw = new FileWriter(outDir + file_name + "-" + method_name + ".token");
-                        for (String token : tokens) {
-                            fw.write(token);
+                        for (BCEToken token : tokens) {
+                            fw.write(token.getTokenValue());
                             fw.write("\n");
                         }
                         fw.close();

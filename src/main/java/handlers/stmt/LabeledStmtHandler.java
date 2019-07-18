@@ -4,14 +4,15 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.stmt.LabeledStmt;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LabeledStmtHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
         LabeledStmt labeledStmt = (LabeledStmt)node;
         Node statement = labeledStmt.getStatement();
         BaseHandler handler = HandlerFactory.getHandler(statement);

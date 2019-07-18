@@ -1,15 +1,24 @@
 package handlers;
 
 import com.github.javaparser.ast.Node;
-import handlers.comment.*;
+import handlers.comment.BlockCommentHandler;
+import handlers.comment.LineCommentHandler;
 import handlers.declaration.*;
 import handlers.expr.*;
 import handlers.literal.*;
-import handlers.misc.*;
-import handlers.name.*;
-import handlers.parameter.*;
+import handlers.misc.ArrayCreationLevelHandler;
+import handlers.misc.CatchClauseHandler;
+import handlers.misc.ModifierHandler;
+import handlers.misc.SwitchEntryHandler;
+import handlers.name.NameHandler;
+import handlers.name.SimpleNameHandler;
+import handlers.parameter.ParameterHandler;
+import handlers.parameter.TypeParameterHandler;
 import handlers.stmt.*;
-import handlers.type.*;
+import handlers.type.ArrayTypeHandler;
+import handlers.type.ClassOrInterfaceTypeHandler;
+import handlers.type.PrimitiveTypeHandler;
+import handlers.type.VoidTypeHandler;
 
 public class HandlerFactory {
     public static BaseHandler getHandler(Node n){

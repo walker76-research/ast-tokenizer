@@ -5,6 +5,7 @@ import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.stmt.ForStmt;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +13,10 @@ import java.util.Optional;
 
 public class ForStmtHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
         ForStmt forStmt = (ForStmt)node;
-        tokens.add("FOR");
+        tokens.add(new BCEToken("FOR", node));
         List<Expression> initialization = forStmt.getInitialization();
         for (Node child : initialization) {
             BaseHandler handler = HandlerFactory.getHandler(child);
@@ -25,7 +26,7 @@ public class ForStmtHandler extends BaseHandler {
                 System.out.println(child.getClass().getSimpleName());
             }
         }
-        tokens.add(";");
+        tokens.add(new BCEToken(";", node));
 
         Optional<Expression> compareOpt = forStmt.getCompare();
         if(compareOpt.isPresent()){
@@ -38,7 +39,7 @@ public class ForStmtHandler extends BaseHandler {
                 System.out.println(compare.getClass().getSimpleName());
             }
         }
-        tokens.add(";");
+        tokens.add(new BCEToken(";", node));
 
         List<Expression> update = forStmt.getUpdate();
         for (Node child : update) {
@@ -49,7 +50,7 @@ public class ForStmtHandler extends BaseHandler {
                 System.out.println(child.getClass().getSimpleName());
             }
         }
-        tokens.add("DO");
+        tokens.add(new BCEToken("DO", node));
 
         Node body = forStmt.getBody();
         BaseHandler handler = HandlerFactory.getHandler(body);

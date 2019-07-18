@@ -4,16 +4,17 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.expr.ArrayCreationExpr;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArrayCreationExprHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
 
-        tokens.add("NEW");
+        tokens.add(new BCEToken("NEW", node));
         ArrayCreationExpr arrayCreationExpr = (ArrayCreationExpr)node;
         Node elementType = arrayCreationExpr.getElementType();
         BaseHandler handler = HandlerFactory.getHandler(elementType);
@@ -22,7 +23,7 @@ public class ArrayCreationExprHandler extends BaseHandler {
         } else {
             System.out.println(elementType.getClass().getSimpleName());
         }
-        tokens.add("ARRAY");
+        tokens.add(new BCEToken("ARRAY", node));
 
         for(Node child : arrayCreationExpr.getLevels()){
             handler = HandlerFactory.getHandler(child);

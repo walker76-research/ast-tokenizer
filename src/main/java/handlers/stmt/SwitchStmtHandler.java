@@ -4,15 +4,16 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.stmt.SwitchStmt;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SwitchStmtHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
-        tokens.add("SWITCH");
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
+        tokens.add(new BCEToken("SWITCH", node));
         SwitchStmt switchStmt = (SwitchStmt)node;
         Node selector = switchStmt.getSelector();
         BaseHandler handler = HandlerFactory.getHandler(selector);

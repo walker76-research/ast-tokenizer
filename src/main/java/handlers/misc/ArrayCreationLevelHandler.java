@@ -3,16 +3,17 @@ package handlers.misc;
 import com.github.javaparser.ast.Node;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArrayCreationLevelHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
 
-        tokens.add("[");
+        tokens.add(new BCEToken("[", node));
         for(Node child : node.getChildNodes()){
             BaseHandler handler = HandlerFactory.getHandler(child);
             if(handler != null) {
@@ -21,7 +22,7 @@ public class ArrayCreationLevelHandler extends BaseHandler {
                 System.out.println(child.getClass().getSimpleName());
             }
         }
-        tokens.add("]");
+        tokens.add(new BCEToken("]", node));
 
         return tokens;
     }

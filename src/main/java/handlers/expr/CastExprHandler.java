@@ -4,16 +4,17 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.expr.CastExpr;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CastExprHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
         CastExpr castExpr = (CastExpr) node;
-        tokens.add("CAST");
+        tokens.add(new BCEToken("CAST", node));
         Node expression = castExpr.getExpression();
         BaseHandler handler = HandlerFactory.getHandler(expression);
         if (handler != null) {
@@ -22,7 +23,7 @@ public class CastExprHandler extends BaseHandler {
             System.out.println(expression.getClass().getSimpleName());
         }
 
-        tokens.add("TO");
+        tokens.add(new BCEToken("TO", node));
         Node type = castExpr.getType();
         handler = HandlerFactory.getHandler(type);
         if (handler != null) {

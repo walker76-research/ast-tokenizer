@@ -5,6 +5,7 @@ import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,8 @@ import java.util.Optional;
 
 public class MethodDeclarationHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
         MethodDeclaration declaration = (MethodDeclaration)node;
 
         for(Node n : declaration.getAnnotations()){
@@ -34,7 +35,7 @@ public class MethodDeclarationHandler extends BaseHandler {
             }
         }
 
-        tokens.add("METHOD_NAME");
+        tokens.add(new BCEToken("METHOD_NAME", node));
 
         for(Node n : declaration.getParameters()){
             BaseHandler handler = HandlerFactory.getHandler(n);

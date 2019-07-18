@@ -4,14 +4,15 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.expr.BinaryExpr;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BinaryExprHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
 
         BinaryExpr expr = (BinaryExpr)node;
         BaseHandler handler = HandlerFactory.getHandler(expr.getLeft());
@@ -21,7 +22,7 @@ public class BinaryExprHandler extends BaseHandler {
             System.out.println(expr.getLeft().getClass().getSimpleName());
         }
 
-        tokens.add(expr.getOperator().asString());
+        tokens.add(new BCEToken(expr.getOperator().asString(), node));
 
         handler = HandlerFactory.getHandler(expr.getRight());
         if(handler != null) {

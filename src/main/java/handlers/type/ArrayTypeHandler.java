@@ -3,14 +3,15 @@ package handlers.type;
 import com.github.javaparser.ast.Node;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArrayTypeHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
         for(Node child : node.getChildNodes()){
             BaseHandler handler = HandlerFactory.getHandler(child);
             if(handler != null) {
@@ -19,7 +20,7 @@ public class ArrayTypeHandler extends BaseHandler {
                 System.out.println(child.getClass().getSimpleName());
             }
         }
-        tokens.add("ARRAY");
+        tokens.add(new BCEToken("ARRAY", node));
         return tokens;
     }
 }

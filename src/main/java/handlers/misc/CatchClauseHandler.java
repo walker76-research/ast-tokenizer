@@ -4,16 +4,17 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.stmt.CatchClause;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CatchClauseHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
         CatchClause catchClause = (CatchClause)node;
-        tokens.add("CATCH");
+        tokens.add(new BCEToken("CATCH", node));
 
         Node parameter = catchClause.getParameter();
         BaseHandler handler = HandlerFactory.getHandler(parameter);

@@ -4,18 +4,19 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.InitializerDeclaration;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class InitializerDeclarationHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
         InitializerDeclaration initializerDeclaration = (InitializerDeclaration) node;
         boolean isStatic = initializerDeclaration.isStatic();
         if(isStatic){
-            tokens.add("STATIC");
+            tokens.add(new BCEToken("STATIC", node));
         }
         Node body = initializerDeclaration.getBody();
         BaseHandler handler = HandlerFactory.getHandler(body);

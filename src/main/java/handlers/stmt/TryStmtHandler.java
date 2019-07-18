@@ -5,6 +5,7 @@ import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.stmt.TryStmt;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +13,9 @@ import java.util.Optional;
 
 public class TryStmtHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
-        tokens.add("TRY");
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
+        tokens.add(new BCEToken("TRY", node));
 
         Node tryBlock = ((TryStmt) node).getTryBlock();
         BaseHandler handler = HandlerFactory.getHandler(tryBlock);

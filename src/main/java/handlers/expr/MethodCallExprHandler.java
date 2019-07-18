@@ -5,6 +5,7 @@ import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,8 @@ import java.util.Optional;
 
 public class MethodCallExprHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
         MethodCallExpr expr = (MethodCallExpr)node;
         Optional<Expression> scopeOpt = expr.getScope();
         if(scopeOpt.isPresent()) {
@@ -34,7 +35,7 @@ public class MethodCallExprHandler extends BaseHandler {
         }
 
         for(Node n : expr.getArguments()){
-            tokens.add("PARAMETER");
+            tokens.add(new BCEToken("PARAMETER", node));
         }
         return tokens;
     }

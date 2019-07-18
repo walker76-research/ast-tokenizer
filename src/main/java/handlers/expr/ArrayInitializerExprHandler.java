@@ -4,15 +4,16 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.expr.ArrayInitializerExpr;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArrayInitializerExprHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
-        tokens.add("{");
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
+        tokens.add(new BCEToken("{", node));
         ArrayInitializerExpr arrayInitializerExpr = (ArrayInitializerExpr)node;
 
         for (Node child : arrayInitializerExpr.getValues()) {
@@ -23,7 +24,7 @@ public class ArrayInitializerExprHandler extends BaseHandler {
                 System.out.println(child.getClass().getSimpleName());
             }
         }
-        tokens.add("}");
+        tokens.add(new BCEToken("}", node));
 
         return tokens;
     }

@@ -4,14 +4,15 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.expr.ArrayAccessExpr;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArrayAccessExprHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
 
         ArrayAccessExpr arrayAccessExpr = (ArrayAccessExpr) node;
         Node name = arrayAccessExpr.getName();
@@ -24,7 +25,7 @@ public class ArrayAccessExprHandler extends BaseHandler {
             System.out.println(name.getClass().getSimpleName());
         }
 
-        tokens.add("[");
+        tokens.add(new BCEToken("[", node));
 
         handler = HandlerFactory.getHandler(index);
         if(handler != null) {
@@ -33,7 +34,7 @@ public class ArrayAccessExprHandler extends BaseHandler {
             System.out.println(index.getClass().getSimpleName());
         }
 
-        tokens.add("]");
+        tokens.add(new BCEToken("]", node));
 
         return tokens;
     }

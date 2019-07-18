@@ -4,15 +4,16 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SingleMemberAnnotationExprHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
-        tokens.add("SM_ANNOTATION");
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
+        tokens.add(new BCEToken("SM_ANNOTATION", node));
         SingleMemberAnnotationExpr singleMemberAnnotationExpr = (SingleMemberAnnotationExpr)node;
         Node memberValue = singleMemberAnnotationExpr.getMemberValue();
         BaseHandler handler = HandlerFactory.getHandler(memberValue);

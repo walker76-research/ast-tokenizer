@@ -4,23 +4,24 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.stmt.IfStmt;
 import handlers.BaseHandler;
 import handlers.HandlerFactory;
+import models.BCEToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class IfStmtHandler extends BaseHandler {
     @Override
-    public List<String> handle(Node node) {
-        List<String> tokens = new ArrayList<>();
+    public List<BCEToken> handle(Node node) {
+        List<BCEToken> tokens = new ArrayList<>();
         IfStmt expr = (IfStmt)node;
-        tokens.add("IF");
+        tokens.add(new BCEToken("IF", node));
         BaseHandler handler = HandlerFactory.getHandler(expr.getCondition());
         if(handler != null) {
             tokens.addAll(handler.handle(expr.getCondition()));
         } else {
             System.out.println(expr.getCondition().getClass().getSimpleName());
         }
-        tokens.add("THEN");
+        tokens.add(new BCEToken("THEN", node));
         for(Node child : expr.getThenStmt().getChildNodes()){
             handler = HandlerFactory.getHandler(child);
             if(handler != null) {
@@ -30,7 +31,7 @@ public class IfStmtHandler extends BaseHandler {
             }
         }
         if(expr.getElseStmt().isPresent()) {
-            tokens.add("ELSE");
+            tokens.add(new BCEToken("ELSE", node));
             Node elseStmt = expr.getElseStmt().get();
             for (Node child : elseStmt.getChildNodes()) {
                 handler = HandlerFactory.getHandler(child);
